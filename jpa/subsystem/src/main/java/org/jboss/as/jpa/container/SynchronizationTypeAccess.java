@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2014, Red Hat, Inc., and individual contributors
+ * Copyright 2016, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -19,19 +19,17 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.wildfly.clustering.ejb.infinispan;
 
-import org.wildfly.clustering.ee.Batcher;
-import org.wildfly.clustering.ee.infinispan.Evictor;
-import org.wildfly.clustering.ee.infinispan.TransactionBatch;
+package org.jboss.as.jpa.container;
+
+import javax.persistence.SynchronizationType;
 
 /**
- * Encapsulates the context for session eviction.
- * @author Paul Ferraro
+ * SynchronizationTypeAccess provides access to the SynchronizationType for an EntityManager.
+ *
+ * @author Scott Marlow
  */
-public interface BeanEvictionContext<I> {
+public interface SynchronizationTypeAccess {
 
-    Batcher<TransactionBatch> getBatcher();
-
-    Evictor<I> getEvictor();
+    SynchronizationType getSynchronizationType();
 }
