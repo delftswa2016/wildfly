@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2015, Red Hat, Inc., and individual contributors
+ * Copyright 2016, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -20,13 +20,30 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.as.clustering.controller;
+package org.jboss.as.test.integration.ejb.stateful.passivation;
+
+import javax.ejb.Local;
+import javax.ejb.Remove;
 
 /**
- * Identifies a requirement.
  * @author Paul Ferraro
  */
-public interface Requirement {
+@Local
+public interface Bean extends AutoCloseable {
+    /**
+     * Returns whether or not this instance has been passivated
+     */
+    boolean wasPassivated();
 
-    String getName();
+    /**
+     * Returns whether or not this instance has been activated
+     */
+    boolean wasActivated();
+
+    default void doNothing() {
+    }
+
+    @Override
+    @Remove
+    void close();
 }
