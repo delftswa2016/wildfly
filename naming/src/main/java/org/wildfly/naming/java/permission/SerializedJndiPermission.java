@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2014, Red Hat, Inc., and individual contributors
+ * Copyright 2016, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -19,19 +19,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.wildfly.clustering.infinispan.spi.service;
 
-import org.infinispan.configuration.cache.ConfigurationBuilder;
+package org.wildfly.naming.java.permission;
 
-/**
- * Abstraction for creating a cache configuration.
- * @author Paul Ferraro
- */
-public interface ConfigurationBuilderFactory {
+import java.io.Serializable;
 
-    /**
-     * Creates a cache configuration
-     * @return a cache configuration
-     */
-    ConfigurationBuilder createConfigurationBuilder();
+final class SerializedJndiPermission implements Serializable {
+    private static final long serialVersionUID = - 7602123815143424767L;
+
+    private final String name;
+    private final String actions;
+
+    SerializedJndiPermission(final String name, final String actions) {
+        this.name = name;
+        this.actions = actions;
+    }
+
+    Object readResolve() {
+        return new JndiPermission(name, actions);
+    }
 }
